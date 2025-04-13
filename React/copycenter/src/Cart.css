@@ -1,0 +1,49 @@
+.modal-content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.remove-button {
+    background-color: #ff4d4d; /* Красный цвет для удаления */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #ff1a1a; /* Более темный красный при наведении */
+}
+
+.total-price {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.checkout-button {
+    background-color: #4CAF50; /* Зеленый цвет для оформления заказа */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.checkout-button:hover {
+    background-color: #45a049; /* Более темный зеленый при наведении */
+}

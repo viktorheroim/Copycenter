@@ -1,28 +1,21 @@
 import React from "react";
 import LogoutButton from './LogoutButton';
 import Login from "./Login";
-
+import Register from "./Register";
 
 const Header = () => {
     return (
         <header className='header'>
             <div className='header-content'>
-                <img src={`${process.env.PUBLIC_URL}/Логотип.jpg`} alt="Логотип" className='logo'/>
                 <div className='left-section'>
                     <h1>Гарри Плоттер</h1>
-                    <p>Адрес: г. Гомель, проспект Победы, 8</p>
-                    <p>+375 29 603 15 44</p>
+                    <p>Адрес: г.Гомель, проспект Победы, 8</p>
                 </div>
-                <nav className='nav-links'>
-                    <ul>
-                        <li>
-                            <div className='login-container'>
-                                <Login/>
-                                <LogoutButton/>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+                <div className='button-container'>
+                    <Register/>
+                    <Login/>
+                    <LogoutButton/>
+                </div>
             </div>
         </header>
     );

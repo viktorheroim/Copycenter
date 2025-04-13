@@ -1,3 +1,16 @@
+:root {
+    --primary-color: steelblue;
+    --hover-color: steelblue;
+    --footer-background: steelblue;
+    --item-background: #f5f5dc;
+    --item-hover-background: #e0e0e0;
+    --border-radius: 5px;
+    --padding-small: 5px;
+    --padding-medium: 10px;
+    --padding-large: 20px;
+}
+
+/*/ Сброс стилей /*/
 * {
     padding: 0;
     margin: 0;
@@ -8,87 +21,94 @@ ul {
     list-style: none;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: 'Arial', sans-serif;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
+/*/ Основная структура приложения /*/
 .App {
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100vh;
 }
 
+/*/ Основной контент /*/
 main {
     flex: 1;
-    padding: 20px;
+    padding: var(--padding-large);
     background: white;
+    display: flex; /* Если используешь флекс-контейнер */
+    flex-direction: column; /* Вертикальное расположение */
+    gap: 10px; /* Промежуток между элементами */
 }
-/*------------------------------------------------------------------*/
+
+/*/ Заголовок /*/
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    background-color: steelblue;
+    padding: var(--padding-large);
 }
 
 .header-content {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-}
-
-.header img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
 }
 
 .left-section {
-    margin-right: auto;
+    flex: 1;
 }
 
-.logo {
-    margin: 0 20px;
+.button-container {
+    display: inline-grid;
+    gap: 10px;
 }
 
-.nav-links ul {
-    list-style: none;
-    display: contents;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
+/*/ Кнопки /*/
+button {
+    background-color: darkslateblue;
+    color: white;
+    padding: var(--padding-small) 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 200px;
 }
 
-.nav-links li {
-    display: inline;
+button:hover {
+    background: var(--hover-color);
 }
 
-/*--------------------------------------------------------------------*/
+.App button {
+    border-radius: var(--border-radius);
+}
 
+/*/ Подвал /*/
 .footer {
     text-align: center;
-    padding: 0px 10px;
-    background: darksalmon;
+    padding: var(--padding-small) 10px;
+    background: var(--footer-background);
 }
 
+/*/ Элементы списка /*/
 .item {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5px;
+    padding: var(--padding-medium);
     margin-bottom: 15px;
-    background: #f5f5dc;
-    transition: background 0.3s;
-    border-radius: 8px;
+    background: var(--item-background);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+    border-radius: var(--border-radius);
 }
 
 .item:hover {
-    background: #e0e0e0;
+    background: var(--item-hover-background);
 }
 
 .item label {
@@ -120,72 +140,34 @@ main {
     color: steelblue;
 }
 
-.item svg:focus,
 .item svg:hover {
     color: red;
-    outline: none;
 }
 
-.App button {
-    border-radius: 5px;
-    width: 200px;
-    transition: background 0.3s;
-    margin: 5px;
-    background: orange;
-    color: white;
-    border: none;
-}
-
-button:hover {
-    background: darkorange;
-}
-
-
+/*/ Формы /*/
 form {
     text-align: right;
 }
 
-button.register {
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    float: right;
-    margin: 20px 20px;
-}
-
-button.register:hover {
-    background-color: #45a049;
-}
-
-button.registered {
-    text-align: center;
-    background-color: orange;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    float: right;
-    margin: 20px 20px;
-}
-
-button.registered:hover {
-    background-color: darkorange;
-}
-
-.input {
-    margin: 20px 5px 5px;
-    border-radius: 5px;
-}
-
-button.login {
-    border: none;
-}
-
+/*/ Кнопки регистрации и входа /*/
+button.register,
+button.registered,
+button.login,
 button.logout {
-    border: none;
+    text-align: center;
+    background-color: darkslateblue;
+    color: white;
+    padding: var(--padding-small);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    float: right;
 }
+
+button.register:hover,
+button.registered:hover,
+button.login:hover,
+button.logout:hover {
+    background-color: cornflowerblue;
+}
+
+

@@ -1,0 +1,79 @@
+/* Общие стили для модального окна */
+.overlay {
+    background-color: grey;
+    position: fixed;
+    top: 150px;
+    left: 10px;
+    right: 190px;
+    bottom: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.modal {
+    background-color: gray;
+    border-radius: 10px; /* Закругленные углы */
+    padding: 20px; /* Отступы внутри модального окна */
+    width: 300px; /* Ширина модального окна */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Тень для эффекта глубины */
+    position: relative; /* Для позиционирования кнопки закрытия */
+}
+
+/* Заголовок модального окна */
+.modal h2 {
+    margin-bottom: 20px; /* Отступ снизу */
+    font-size: 24px; /* Размер шрифта заголовка */
+    color: #333; /* Цвет текста заголовка */
+}
+
+/* Стили для полей ввода */
+.input {
+    width: 100%; /* Полная ширина */
+    padding: 5px; /* Отступы внутри полей ввода */
+    margin-bottom: 15px; /* Отступ снизу */
+    border: 1px solid #ccc; /* Светлая рамка */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Стили для кнопки регистрации */
+.registered {
+    background-color: #4CAF50; /* Зеленый фон */
+    color: white; /* Белый текст */
+    padding: 10px; /* Отступы внутри кнопки */
+    border: none; /* Без рамки */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Курсор при наведении */
+    font-size: 16px; /* Размер шрифта */
+}
+
+.registered:hover {
+    background-color: #45a049; /* Темнее при наведении */
+}
+
+/* Стили для кнопки закрытия */
+.close-modal {
+    background-color: transparent; /* Прозрачный фон */
+    color: white; /* Цвет текста */
+    border: none; /* Без рамки */
+    cursor: pointer; /* Курсор при наведении */
+    position: absolute; /* Позиционирование кнопки закрытия */
+    top: 10px; /* Отступ сверху */
+    right: 10px; /* Отступ справа */
+    font-size: 18px; /* Размер шрифта */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.close-modal:hover {
+    color: white; /* Цвет при наведении */
+    border-radius: var(--border-radius);
+    background-color: darkslateblue;
+}
+
+/* Стили для сообщения об ошибке */
+.error-message {
+    color: red; /* Красный цвет текста ошибки */
+    margin-top: 10px; /* Отступ сверху */
+}

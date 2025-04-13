@@ -1,22 +1,43 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
+import './ModalStyles.css';
+
+Modal.setAppElement('#root');
 
 const Register = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [isFormVisible, setIsFormVisible] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const openModal = () => {
+        setIsOpen(true);
+        // Сброс значений при открытии модального окна
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
+        setEmail('');
+        setError('');
+        setSuccessMessage('');
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setError('');
+        setSuccessMessage('');
+        setLoading(true);
 
-        // Простейшая валидация
-        if (!username || !password || !email) {
-            setError('Все поля обязательны для заполнения.');
+        if (password !== confirmPassword) {
+            setError('Пароли не совпадают');
             setLoading(false);
             return;
         }
@@ -27,59 +48,65 @@ const Register = () => {
                 password,
                 email,
             });
-            console.log(response.data);
-            // Очистка полей после успешной регистрации
-            setUsername('');
-            setPassword('');
-            setEmail('');
-            // Здесь можно добавить логику для успешной регистрации
+            setSuccessMessage('Вы успешно зарегистрированы!');
+            closeModal(); // Закрываем модальное окно при успешной регистрации
         } catch (error) {
-            console.error("There was an error!", error);
-            setError('Ошибка регистрации. Попробуйте еще раз.');
+            if (error.response && error.response.status === 400) {
+                setError('Ошибка регистрации. Попробуйте снова.');
+            } else {
+                setError('Произошла ошибка. Попробуйте снова.');
+            }
         } finally {
             setLoading(false);
         }
     };
 
-    const toggleFormVisibility = () => {
-        setIsFormVisible(!isFormVisible);
-    };
-
     return (
         <div>
-            <button onClick={toggleFormVisibility} className='register'>
-                {isFormVisible ? 'Скрыть форму' : 'РЕГИСТРАЦИЯ'}
-            </button>
-
-            {isFormVisible && (
+            <button onClick={openModal}>Регистрация</button>
+            <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Register Modal">
+                <h2>Регистрация</h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Username"
+                        placeholder="Имя пользователя"
+                        required
                         className='input'
                     />
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
+                        placeholder="Пароль"
+                        required
                         className='input'
                     />
                     <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Подтвердите пароль"
+                        required
                         className='input'
                     />
-                    <button type="submit" disabled={loading} className='registered'>
-                        {loading ? 'Загрузка...' : 'Зарегистрироваться'}
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Почта"
+                        required
+                        className='input'
+                    />
+                    <button type="submit" className='register' disabled={loading}>
+                        {loading ? 'Регистрация...' : 'Зарегистрироваться'}
                     </button>
-                    {error && <p style={{color: 'red'}}>{error}</p>}
+                    {error && <p className='error-message' style={{color: 'red'}}>{error}</p>}
+                    {successMessage && <p className='success-message' style={{color: 'green'}}>{successMessage}</p>}
                 </form>
-            )}
+                <button onClick={closeModal}>Закрыть</button>
+            </Modal>
         </div>
     );
 };

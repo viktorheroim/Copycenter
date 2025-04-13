@@ -1,0 +1,30 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    font-size: 14px; /* Уменьшаем размер шрифта */
+    margin: 0; /* Убираем отступы, если нужно */
+}

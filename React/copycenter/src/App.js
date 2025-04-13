@@ -7,12 +7,12 @@ import Content3 from "./Content3";
 import Content4 from "./Content4";
 import Content5 from "./Content5";
 import Content6 from "./Content6";
-import Register from "./Register";
 import CounterLikes from "./CounterLikes";
 import Style from "./Style";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from './Modal';
+import ProductList from './ProductList';
 
 
 const API_URL = "http://127.0.0.1:8000/api/printphoto/"
@@ -21,6 +21,7 @@ const API_URL3 = "http://127.0.0.1:8000/api/laminating/"
 const API_URL4 = "http://127.0.0.1:8000/api/binding/"
 const API_URL5 = "http://127.0.0.1:8000/api/printbw/"
 const API_URL6 = "http://127.0.0.1:8000/api/printcolour/"
+
 
 function App() {
 
@@ -117,9 +118,9 @@ function App() {
     };
     const closeModal6 = () => setIsModalOpen6(false);
 
+
     return (
         <div className='App'>
-            <Register/>
             <Header/>
             <main>
                 <div>
@@ -158,9 +159,10 @@ function App() {
                         <Content6 PrintColour={PrintColour}/>
                     </Modal>
                 </div>
+                <ProductList/>
             </main>
             {/*<CounterLikes/>*/}
-            <Style/>
+            {/*<Style/>*/}
             <Footer/>
         </div>
     )

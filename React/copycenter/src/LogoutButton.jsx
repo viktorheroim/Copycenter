@@ -21,10 +21,9 @@ const LogoutButton = () => {
         <div>
             <form onSubmit={handleLogout}>
                 <button type="submit" className='logout'>
-                    Выйти
+                    {message || 'Выйти'}
                 </button>
             </form>
-            {message && <p style={{ marginTop: '10px' }}>{message}</p>}
         </div>
     );
 };
