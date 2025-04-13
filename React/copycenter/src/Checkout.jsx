@@ -14,6 +14,13 @@ const Checkout = ({ cart, clearCart, onClose }) => {
         setLoading(true);
         setError(null);
 
+        // Исправленная валидация
+        if (!name || !address || !phone) {
+            setError('Пожалуйста, заполните все поля.');
+            setLoading(false);
+            return;
+        }
+
         try {
             const orderData = {
                 name,
@@ -25,14 +32,22 @@ const Checkout = ({ cart, clearCart, onClose }) => {
             // Отправка заказа на сервер
             await axios.post('http://127.0.0.1:8000/api/orders/', orderData, {
                 headers: {
-                    Authorization: `Token ${localStorage.getItem('token')}`, // Предположим, вы используете токен
+                    Authorization: `Token ${localStorage.getItem('token')}`, // Исправлено
                 },
             });
 
             setSuccess(true);
             clearCart(); // Очистка корзины после успешного оформления
+
+            // Сброс сообщения об успехе через 5 секунд
+            setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
-            setError('Ошибка при оформлении заказа. Попробуйте еще раз.');
+            // Выводим сообщение об ошибке
+            if (err.response && err.response.data) {
+                setError(err.response.data.message || 'Ошибка при оформлении заказа. Попробуйте еще раз.');
+            } else {
+                setError('Ошибка при оформлении заказа. Попробуйте еще раз.');
+            }
         } finally {
             setLoading(false);
         }

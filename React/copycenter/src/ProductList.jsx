@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cart from './Cart';
-import Checkout from './Checkout'; // Импортируйте новый компонент
+import Checkout from './Checkout';
 import './ProductList.css';
 
 const ProductList = () => {
@@ -36,12 +36,15 @@ const ProductList = () => {
             setCart([...cart, product]);
             setNotification(`${product.name} добавлен в корзину!`);
         }
+        // Автоматически скрываем уведомление через 3 секунды
+        setTimeout(() => setNotification(''), 3000);
     };
 
-    const removeFromCart = (index) => {
-        const newCart = cart.filter((_, i) => i !== index);
+    const removeFromCart = (id) => {
+        const newCart = cart.filter(item => item.id !== id);
         setCart(newCart);
         setNotification("Товар удален из корзины.");
+        setTimeout(() => setNotification(''), 3000);
     };
 
     const toggleCart = () => {
@@ -51,6 +54,13 @@ const ProductList = () => {
     const clearCart = () => {
         setCart([]);
         setNotification("Корзина очищена.");
+        setTimeout(() => setNotification(''), 3000);
+    };
+
+    const handleCheckout = () => {
+        // Закрываем корзину при оформлении заказа
+        setIsCartOpen(false);
+        setIsCheckoutOpen(true); // Открываем окно оформления заказа
     };
 
     if (loading) return <p>Загрузка...</p>;
@@ -63,20 +73,20 @@ const ProductList = () => {
             </button>
             {isCartOpen && (
                 <div className="modal">
-                    <Cart cart={cart} removeFromCart={removeFromCart} />
-                    <button onClick={() => setIsCheckoutOpen(true)}>Оформить заказ</button>
+                    <Cart cart={cart} removeFromCart={removeFromCart}/>
+                    <button onClick={handleCheckout}>Оформить заказ</button>
                     <button key="close-cart" onClick={toggleCart}>Закрыть</button>
                 </div>
             )}
             {isCheckoutOpen && (
-                <Checkout cart={cart} clearCart={clearCart} onClose={() => setIsCheckoutOpen(false)} />
+                <Checkout cart={cart} clearCart={clearCart} onClose={() => setIsCheckoutOpen(false)}/>
             )}
             {notification && <div className="notification">{notification}</div>}
             <div className="product-grid">
                 {products.map((product) => (
                     <div className="product-card" key={product.id}>
                         {product.image_url ? (
-                            <img src={product.image_url} alt={product.name} />
+                            <img src={product.image_url} alt={product.name}/>
                         ) : (
                             <p>Изображение недоступно</p>
                         )}
