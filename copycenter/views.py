@@ -5,14 +5,14 @@ from rest_framework import filters
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour
+from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, Order
 from .permissions import AllForAdminOtherReadOnly
 from .serializers import UserSerializer, ServicesSerializer, PrintPhotoSerializer, LaminatingSerializer, \
-    BindingSerializer, PrintBWSerializer, PrintColourSerializer
+    BindingSerializer, PrintBWSerializer, PrintColourSerializer, ProductRamkiSerializer, OrderSerializer
 
 @api_view(['POST'])
 def register_user(request):
@@ -89,3 +89,24 @@ class PrintColourViewSet(viewsets.ModelViewSet):
 
     def printColour(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
+
+class ProductRamkiViewSet(viewsets.ModelViewSet):
+    queryset = ProductRamki.objects.all()
+    serializer_class = ProductRamkiSerializer
+    permission_classes = (AllForAdminOtherReadOnly,)
+
+    def productRamki(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_200_OK)
+
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [AllowAny]  # Позволяем доступ всем пользователям
+
+    def perform_create(self, serializer):
+        # Если пользователь аутентифицирован, сохраняем его как пользователя заказа
+        if self.request.user.is_authenticated:
+            serializer.save(user=self.request.user)
+        else:
+            # Если пользователь не аутентифицирован, просто сохраняем заказ без пользователя
+            serializer.save()

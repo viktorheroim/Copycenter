@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from .views import register_user, ServicesViewSet, PrintPhotoViewSet, LaminatingViewSet, \
-    BindingViewSet, PrintBWViewSet, PrintColourViewSet
+    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, OrderViewSet
 
 router = routers.DefaultRouter()
 
@@ -11,6 +11,8 @@ router.register(r'laminating', LaminatingViewSet)
 router.register(r'binding', BindingViewSet)
 router.register(r'printbw', PrintBWViewSet)
 router.register(r'printcolour', PrintColourViewSet)
+router.register(r'productramki', ProductRamkiViewSet)
+router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -20,5 +22,7 @@ urlpatterns = [
     path('binding/', BindingViewSet.as_view({'get': 'binding'}), name='binding'),
     path('printbw/', PrintBWViewSet.as_view({'get': 'printbw'}), name='printbw'),
     path('printcolour/', PrintColourViewSet.as_view({'get': 'printcolour'}), name='printcolour'),
+    path('productramki/', ProductRamkiViewSet.as_view({'get': 'productramki'}), name='productramki'),
+    path('orders/', OrderViewSet.as_view({'get': 'orders', 'post': 'create_order'}), name='orders'),
     path('register/', register_user, name='register'),
 ]

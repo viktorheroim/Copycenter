@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour
+from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, Order
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,3 +48,13 @@ class PrintColourSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintColour
         fields = ('__all__')
+
+class ProductRamkiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductRamki
+        fields = ('__all__')
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['name', 'address', 'phone', 'products']
