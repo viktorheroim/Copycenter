@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cart.css'; // Импортируем стили
+import './Cart.css';
 
 const Cart = ({ cart, removeFromCart }) => {
     if (cart.length === 0) {
@@ -9,17 +9,23 @@ const Cart = ({ cart, removeFromCart }) => {
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
     const formatPrice = (price) => {
-        return `${price.toLocaleString('ru-RU')} руб.`;
+        return `${price.toLocaleString('ru-RU')} руб.`; // Исправлено
+    };
+
+    const handleRemove = (id) => {
+        if (window.confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+            removeFromCart(id);
+        }
     };
 
     return (
         <div className="modal-content">
             <h2>Содержимое корзины</h2>
             <ul>
-                {cart.map((item, index) => (
-                    <li key={index}>
+                {cart.map((item) => (
+                    <li key={item.id}>
                         {item.name} - {formatPrice(item.price)}
-                        <button onClick={() => removeFromCart(item.id)}>Удалить</button>
+                        <button onClick={() => handleRemove(item.id)}>Удалить</button>
                     </li>
                 ))}
             </ul>
