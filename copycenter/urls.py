@@ -23,6 +23,6 @@ urlpatterns = [
     path('printbw/', PrintBWViewSet.as_view({'get': 'printbw'}), name='printbw'),
     path('printcolour/', PrintColourViewSet.as_view({'get': 'printcolour'}), name='printcolour'),
     path('productramki/', ProductRamkiViewSet.as_view({'get': 'productramki'}), name='productramki'),
-    path('orders/', OrderViewSet.as_view({'get': 'orders', 'post': 'create_order'}), name='orders'),
+    path('orders/', OrderViewSet.as_view({'get': 'orders', 'post': 'create'}), name='orders'),
     path('register/', register_user, name='register'),
 ]

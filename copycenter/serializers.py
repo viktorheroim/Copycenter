@@ -57,4 +57,4 @@ class ProductRamkiSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['name', 'address', 'phone', 'products']
+        fields = ['id', 'name', 'address', 'phone', 'products']

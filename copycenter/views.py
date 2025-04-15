@@ -28,7 +28,7 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
         request.user.auth_token.delete()  # Удаляем токен пользователя
-        return Response(status=204)  # Возвращаем статус 204 No Content
+        return Response(status=204)  # Возвращаем статус 204 No ContentService
 
 
 class ServicesViewSet(viewsets.ModelViewSet):
@@ -101,12 +101,8 @@ class ProductRamkiViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [AllowAny]  # Позволяем доступ всем пользователям
+    permission_classes = (AllowAny,)  # Разрешаем доступ всем пользователям
 
     def perform_create(self, serializer):
-        # Если пользователь аутентифицирован, сохраняем его как пользователя заказа
-        if self.request.user.is_authenticated:
-            serializer.save(user=self.request.user)
-        else:
-            # Если пользователь не аутентифицирован, просто сохраняем заказ без пользователя
-            serializer.save()
+        # Сохраняем заказ без привязки к пользователю
+        serializer.save(user=None)

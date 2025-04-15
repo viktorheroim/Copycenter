@@ -57,13 +57,14 @@ class ProductRamki (models.Model):
     def str(self):
         return self.name
 
+
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Позволяет пользователю быть пустым
     name = models.CharField(max_length=255)
     address = models.TextField()
     phone = models.CharField(max_length=15)
-    products = models.JSONField()  # Список продуктов в формате JSON
+    products = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+        return f"Order {self.id} by {self.user.username if self.user else 'Guest'}"
