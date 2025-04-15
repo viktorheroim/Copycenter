@@ -2,6 +2,7 @@ import React from "react";
 import LogoutButton from './LogoutButton';
 import Login from "./Login";
 import Register from "./Register";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -17,6 +18,10 @@ const Header = () => {
                     <LogoutButton/>
                 </div>
             </div>
+            <nav>
+                <Link to="/">Главная</Link>
+                <Link to="/products">Продукты</Link>
+            </nav>
         </header>
     );
 };

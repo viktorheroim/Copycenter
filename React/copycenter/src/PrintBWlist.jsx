@@ -9,4 +9,4 @@ const PrintBWlist = (props) => {
     )
 }
 
-export default PrintBWlist
+export default PrintBWlist;

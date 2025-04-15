@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
-const Checkout = ({ cart, clearCart, onClose }) => {
+const Checkout = ({cart, clearCart, onClose}) => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
@@ -14,7 +14,7 @@ const Checkout = ({ cart, clearCart, onClose }) => {
         setLoading(true);
         setError(null);
 
-        // Исправленная валидация
+        // Проверка заполненности полей
         if (!name || !address || !phone) {
             setError('Пожалуйста, заполните все поля.');
             setLoading(false);
@@ -29,27 +29,22 @@ const Checkout = ({ cart, clearCart, onClose }) => {
                 products: cart,
             };
 
-            // Отправка заказа на сервер
-            await axios.post('http://127.0.0.1:8000/api/orders/', orderData, {
-                headers: {
-                    Authorization: `Token ${localStorage.getItem('token')}`, // Исправлено
-                },
-            });
+            console.log('Sending order data:', orderData); // Логируем данные заказа
+
+            await axios.post('http://127.0.0.1:8000/api/orders/', orderData);
 
             setSuccess(true);
-            clearCart(); // Очистка корзины после успешного оформления
-
-            // Сброс сообщения об успехе через 5 секунд
+            clearCart();
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
-            // Выводим сообщение об ошибке
+            console.error('Order submission error:', err); // Логируем ошибку
             if (err.response && err.response.data) {
                 setError(err.response.data.message || 'Ошибка при оформлении заказа. Попробуйте еще раз.');
             } else {
                 setError('Ошибка при оформлении заказа. Попробуйте еще раз.');
             }
         } finally {
-            setLoading(false);
+            setLoading(false); // Убедитесь, что загрузка завершена
         }
     };
 

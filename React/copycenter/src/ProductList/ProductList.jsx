@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Cart from './Cart';
-import Checkout from './Checkout';
+import Cart from '../Cart';
+import Checkout from '../Checkout';
 import './ProductList.css';
 
 const ProductList = () => {
@@ -72,7 +72,7 @@ const ProductList = () => {
                 {isCartOpen ? 'Скрыть корзину' : 'Показать корзину'}
             </button>
             {isCartOpen && (
-                <div className="modal">
+                <div className="modal-content">
                     <Cart cart={cart} removeFromCart={removeFromCart}/>
                     <button onClick={handleCheckout}>Оформить заказ</button>
                     <button key="close-cart" onClick={toggleCart}>Закрыть</button>

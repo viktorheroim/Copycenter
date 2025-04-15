@@ -38,12 +38,15 @@ html, body {
 
 /*/ Основной контент /*/
 main {
-    flex: 1;
-    padding: var(--padding-large);
+    flex: auto;
+    padding: initial;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
     background: white;
-    display: flex; /* Если используешь флекс-контейнер */
-    flex-direction: column; /* Вертикальное расположение */
-    gap: 10px; /* Промежуток между элементами */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 /*/ Заголовок /*/
