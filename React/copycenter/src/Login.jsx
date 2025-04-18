@@ -67,7 +67,6 @@ const Login = () => {
                         {loading ? 'Вход...' : 'Войти'}
                     </button>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
-                    {/*{successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}*/}
                 </form>
                 <button onClick={closeModal}>Закрыть</button>
             </Modal>

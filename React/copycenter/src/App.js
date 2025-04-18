@@ -17,18 +17,21 @@ function App() {
         <Router>
             <div className='App'>
                 <Header/>
-                <main>
-                    <ContentService/>
-                    <ContentPhoto/>
-                    <ContentLaminating/>
-                    <ContentBinding/>
-                    <ContentPrintBW/>
-                    <ContentPrintColour/>
-                </main>
+                <Link className="styled-link" to="/products">Фоторамки</Link>
                 <Routes>
-                    {/* Главная страница */}
-                    <Route path="/" element={<h1>Добро пожаловать на главную страницу!</h1>}/>
-                    {/* Страница с продуктами */}
+                    <Route
+                        path="/"
+                        element={
+                            <main>
+                                <ContentService/>
+                                <ContentPhoto/>
+                                <ContentLaminating/>
+                                <ContentBinding/>
+                                <ContentPrintBW/>
+                                <ContentPrintColour/>
+                            </main>
+                        }
+                    />
                     <Route path="/products" element={<ProductList/>}/>
                 </Routes>
                 <Footer/>

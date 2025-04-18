@@ -38,15 +38,14 @@ html, body {
 
 /*/ Основной контент /*/
 main {
-    flex: auto;
-    padding: initial;
-    padding-top: 10px;
+    flex: none;
+    padding: 10px 10px 0px 10px;
     margin-bottom: 10px;
-    padding-left: 10px;
     background: white;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
+    overflow-x: hidden;
 }
 
 /*/ Заголовок /*/

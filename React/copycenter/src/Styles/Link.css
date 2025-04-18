@@ -1,0 +1,13 @@
+.styled-link {
+    background-color: lightskyblue; /* Цвет фона */
+    padding: 5px 10px; /* Отступы */
+    border-radius: 5px; /* Скругление углов */
+    color: black; /* Цвет текста */
+    text-decoration: none; /* Убирает подчеркивание */
+    margin: 10px 20px 10px;
+    max-width: 100px;
+}
+
+.styled-link:hover {
+    background-color: cornflowerblue; /* Цвет фона при наведении */
+}
