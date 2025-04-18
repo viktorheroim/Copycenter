@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, Order
+from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, Order, Comment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,3 +58,9 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'name', 'address', 'phone', 'products']
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    class Meta:
+        model = Comment
+        fields = ['id', 'user', 'content', 'created_at']

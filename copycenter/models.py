@@ -54,7 +54,7 @@ class ProductRamki (models.Model):
     price = models.FloatField()
     image_url = models.URLField()
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -68,3 +68,12 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username if self.user else 'Guest'}"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Комментарий {self.user.username}: {self.content}'
