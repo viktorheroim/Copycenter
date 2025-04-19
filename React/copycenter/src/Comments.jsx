@@ -6,8 +6,8 @@ function Comments() {
     const [newComment, setNewComment] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для открытия модального окна
-    const [errorMessage, setErrorMessage] = useState(''); // Состояние для сообщения об ошибке
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -27,7 +27,7 @@ function Comments() {
         }
 
         setLoading(true);
-        setErrorMessage(''); // Сбрасываем сообщение об ошибке
+        setErrorMessage('');
 
         fetch('http://127.0.0.1:8000/api/comments/', {
             method: 'POST',
@@ -42,12 +42,12 @@ function Comments() {
                 throw new Error('Ошибка при отправке комментария');
             })
             .then(comment => {
-                setComments([...comments, comment]);
+                setComments(prevComments => [...prevComments, comment]); // Используем предыдущее состояние
                 setNewComment('');
                 setIsModalOpen(false); // Закрываем модальное окно после отправки
             })
             .catch(error => {
-                setErrorMessage(error.message); // Устанавливаем сообщение об ошибке
+                setErrorMessage(error.message);
                 console.error(error);
             })
             .finally(() => setLoading(false));
@@ -58,16 +58,17 @@ function Comments() {
             <button onClick={() => setIsModalOpen(true)}>Открыть комментарии</button>
 
             {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
+                <div className="modall">
+                    <div className="modall-content">
                         <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
                         <h3>Комментарии</h3>
                         {comments.map(c => (
-                            <div key={c.id}>
+                            <div key={c.id} className="comment">
                                 <strong>{c.user}</strong>: {c.content}
                             </div>
                         ))}
                         <textarea
+                            className="comment-input"
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Оставьте комментарий"
@@ -75,7 +76,7 @@ function Comments() {
                         <button onClick={handleAddComment} disabled={loading}>
                             {loading ? 'Отправка...' : 'Отправить'}
                         </button>
-                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>} {/* Отображение ошибки */}
+                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
                     </div>
                 </div>
             )}

@@ -19,7 +19,6 @@ const Header = () => {
                     <Register/>
                     <Login/>
                     <LogoutButton/>
-                    <Comments/>
                 </div>
             </div>
         </header>

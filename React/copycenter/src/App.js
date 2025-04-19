@@ -10,6 +10,7 @@ import ContentPrintBW from "./ContentPrintBW";
 import ContentPrintColour from "./ContentPrintColour";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductList from './ProductList/ProductList';
+import Comments from "./Comments";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Router>
             <div className='App'>
                 <Header/>
+                <Comments/>
                 <Link className="styled-link" to="/products">Фоторамки</Link>
                 <Routes>
                     <Route
