@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 from .views import register_user, ServicesViewSet, PrintPhotoViewSet, LaminatingViewSet, \
-    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, OrderViewSet, CommentViewSet
+    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, OrderViewSet, CommentViewSet, \
+    UserProfileView
 
 router = routers.DefaultRouter()
 
@@ -27,4 +28,6 @@ urlpatterns = [
     path('orders/', OrderViewSet.as_view({'get': 'orders', 'post': 'create'}), name='orders'),
     path('comments/', CommentViewSet.as_view({'get': 'comments', 'post': 'create'}), name='comments'),
     path('register/', register_user, name='register'),
+    path('profile/', UserProfileView.as_view(), name='user-profile'),
+    path('profile/update/', UserProfileView.as_view(), name='user-profile-update'),
 ]
