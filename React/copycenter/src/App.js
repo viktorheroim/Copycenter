@@ -11,6 +11,7 @@ import ContentPrintColour from "./ContentPrintColour";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductList from './ProductList/ProductList';
 import Comments from "./Comments";
+import UserProfile from "./UserProfile";
 
 
 function App() {
@@ -18,13 +19,14 @@ function App() {
         <Router>
             <div className='App'>
                 <Header/>
-                <Comments/>
                 <Link className="styled-link" to="/products">Фоторамки</Link>
                 <Routes>
                     <Route
                         path="/"
                         element={
                             <main>
+                                {/*<UserProfile/>*/}
+                                <Comments/>
                                 <ContentService/>
                                 <ContentPhoto/>
                                 <ContentLaminating/>

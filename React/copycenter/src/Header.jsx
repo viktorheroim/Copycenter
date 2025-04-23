@@ -5,6 +5,7 @@ import Register from "./Register";
 import {Link} from 'react-router-dom';
 import './Styles/Link.css';
 import Comments from "./Comments";
+import UserProfile from "./UserProfile";
 
 const Header = () => {
     return (
@@ -19,6 +20,7 @@ const Header = () => {
                     <Register/>
                     <Login/>
                     <LogoutButton/>
+                    <UserProfile/>
                 </div>
             </div>
         </header>

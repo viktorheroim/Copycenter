@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import './ModalStyles.css';
@@ -12,6 +12,15 @@ const Login = () => {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [userNameDisplay, setUserNameDisplay] = useState(''); // отображение имени
+
+    // Загружаем имя из localStorage при монтировании компонента
+    useEffect(() => {
+        const storedName = localStorage.getItem('username');
+        if (storedName) {
+            setUserNameDisplay(storedName);
+        }
+    }, []);
 
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
@@ -28,8 +37,14 @@ const Login = () => {
                 password,
             });
             localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('username', username);
+            setUserNameDisplay(username);
             setSuccessMessage('Вы успешно вошли!');
-            closeModal(); // Закрываем модальное окно при успешном входе
+            closeModal();
+
+            // Перезагружаем страницу
+            window.location.reload();
+
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError('Неверные учетные данные');
@@ -43,7 +58,9 @@ const Login = () => {
 
     return (
         <div>
-            <button onClick={openModal}>{successMessage || 'Вход пользователя'}</button>
+            <button onClick={openModal}>
+                {userNameDisplay || 'Вход пользователя'}
+            </button>
             <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Login Modal">
                 <h2>Вход</h2>
                 <form onSubmit={handleSubmit}>
@@ -66,7 +83,7 @@ const Login = () => {
                     <button type="submit" className='login' disabled={loading}>
                         {loading ? 'Вход...' : 'Войти'}
                     </button>
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {error && <p style={{color: 'red'}}>{error}</p>}
                 </form>
                 <button onClick={closeModal}>Закрыть</button>
             </Modal>
