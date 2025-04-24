@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import OrderHistory from "./OrderHistory";
 
 const UserProfileModal = ({ isOpen, onClose, userData }) => {
     if (!isOpen) return null;
@@ -11,6 +12,7 @@ const UserProfileModal = ({ isOpen, onClose, userData }) => {
                     <>
                         <p>Имя пользователя: {userData.username}</p>
                         <p>Почта: {userData.email}</p>
+                        <OrderHistory/>
                     </>
                 ) : (
                     <p>Данные пользователя отсутствуют.</p>

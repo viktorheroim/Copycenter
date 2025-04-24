@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
-const OrderHistory = ({ currentUser }) => {
+const OrderHistory = ({currentUser}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,12 +14,19 @@ const OrderHistory = ({ currentUser }) => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setOrders([]); // Очистка заказов при закрытии модального окна
+        setError(null); // Сброс ошибки
     };
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/orders/?user=${currentUser.id}');
+                const token = localStorage.getItem('access_token'); // Получение токена из localStorage
+                const response = await axios.get('http://127.0.0.1:8000/api/orders/?user=${currentUser.id}', {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Добавление токена в заголовок
+                    },
+                });
                 setOrders(response.data);
             } catch (err) {
                 console.error('Error fetching orders:', err);
@@ -36,7 +43,7 @@ const OrderHistory = ({ currentUser }) => {
 
     return (
         <div>
-            <button onClick={openModal}>Посмотреть историю заказов</button>
+            <button onClick={openModal}>История заказов</button>
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} ariaHideApp={false}>
                 <h2>История заказов</h2>
                 {loading ? (
