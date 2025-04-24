@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-const Checkout = ({cart, clearCart, onClose}) => {
-    const [name, setName] = useState('');
+const Checkout = ({ cart, clearCart, onClose }) => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [loading, setLoading] = useState(false);
@@ -15,7 +14,7 @@ const Checkout = ({cart, clearCart, onClose}) => {
         setError(null);
 
         // Проверка заполненности полей
-        if (!name || !address || !phone) {
+        if (!address || !phone) {
             setError('Пожалуйста, заполните все поля.');
             setLoading(false);
             return;
@@ -23,44 +22,56 @@ const Checkout = ({cart, clearCart, onClose}) => {
 
         try {
             const orderData = {
-                name,
                 address,
                 phone,
                 products: cart,
             };
 
-            console.log('Sending order data:', orderData); // Логируем данные заказа
+            console.log('Sending order data:', orderData);
 
-            await axios.post('http://127.0.0.1:8000/api/orders/', orderData);
+            // Получение токена из localStorage
+            const token = localStorage.getItem('access_token');
+
+            // Отправка запроса с заголовком авторизации
+            await axios.post('http://127.0.0.1:8000/api/orders/', orderData, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Добавляем токен в заголовок
+                },
+            });
 
             setSuccess(true);
             clearCart();
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
-            console.error('Order submission error:', err); // Логируем ошибку
+            console.error('Order submission error:', err);
             if (err.response && err.response.data) {
                 setError(err.response.data.message || 'Ошибка при оформлении заказа. Попробуйте еще раз.');
             } else {
                 setError('Ошибка при оформлении заказа. Попробуйте еще раз.');
             }
         } finally {
-            setLoading(false); // Убедитесь, что загрузка завершена
+            setLoading(false);
         }
     };
+
+    // Проверка наличия токена
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+        return (
+            <div className="checkout-modal">
+                <h2>Оформление заказа</h2>
+                <p>Пожалуйста, войдите в свою учетную запись, чтобы оформить заказ.</p>
+                <button type="button" onClick={onClose}>Закрыть</button>
+            </div>
+        );
+    }
 
     return (
         <div className="checkout-modal">
             <h2>Оформление заказа</h2>
-            {success && <p>Заказ успешно оформлен!</p>}
-            {error && <p>{error}</p>}
+            {success && <p className="success-message">Заказ успешно оформлен!</p>}
+            {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Ваше имя"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
                 <input
                     type="text"
                     placeholder="Адрес доставки"

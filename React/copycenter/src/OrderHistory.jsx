@@ -1,0 +1,71 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Modal from 'react-modal';
+
+const OrderHistory = ({ currentUser }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/orders/?user=${currentUser.id}');
+                setOrders(response.data);
+            } catch (err) {
+                console.error('Error fetching orders:', err);
+                setError('Ошибка при загрузке истории заказов. Попробуйте еще раз позже.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (isModalOpen) {
+            fetchOrders();
+        }
+    }, [isModalOpen, currentUser]);
+
+    return (
+        <div>
+            <button onClick={openModal}>Посмотреть историю заказов</button>
+            <Modal isOpen={isModalOpen} onRequestClose={closeModal} ariaHideApp={false}>
+                <h2>История заказов</h2>
+                {loading ? (
+                    <p>Загрузка истории заказов...</p>
+                ) : error ? (
+                    <p>{error}</p>
+                ) : orders.length === 0 ? (
+                    <p>У вас нет заказов.</p>
+                ) : (
+                    <ul>
+                        {orders.map((order) => (
+                            <li key={order.id}>
+                                <h3>Заказ #{order.id}</h3>
+                                <p>Адрес: {order.address}</p>
+                                <p>Телефон: {order.phone}</p>
+                                <h4>Товары:</h4>
+                                <ul>
+                                    {order.products.map((product, index) => (
+                                        <li key={index}>{product.name} - {product.quantity}</li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                <button onClick={closeModal}>Закрыть</button>
+            </Modal>
+        </div>
+    );
+};
+
+export default OrderHistory;
