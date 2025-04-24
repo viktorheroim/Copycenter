@@ -57,12 +57,6 @@ class ServicesViewSet(viewsets.ModelViewSet):
     def services(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
 
-    # @action(methods=['get'], detail=False)
-    # def printphoto(self, request):
-    #     printphoto = PrintPhoto.objects.all()
-    #     return Response({'printphoto': [c.paper for c in printphoto]})
-
-
 class PrintPhotoViewSet(viewsets.ModelViewSet):
     queryset = PrintPhoto.objects.all()
     serializer_class = PrintPhotoSerializer
@@ -124,11 +118,10 @@ class ProductRamkiViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = (AllowAny,)  # Разрешаем доступ всем пользователям
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        # Сохраняем заказ без привязки к пользователю
-        serializer.save(user=None)
+        serializer.save(user=self.request.user)
 
 
 class CommentViewSet(viewsets.ModelViewSet):

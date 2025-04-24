@@ -91,9 +91,11 @@ class ProductRamkiSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Order
-        fields = ['id', 'name', 'address', 'phone', 'products']
+        fields = ('__all__')
 
 
 class CommentSerializer(serializers.ModelSerializer):

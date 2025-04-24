@@ -59,15 +59,14 @@ class ProductRamki (models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Позволяет пользователю быть пустым
-    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.TextField()
     phone = models.CharField(max_length=15)
     products = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.username if self.user else 'Guest'}"
+        return f"Заказ {self.user.username}: {self.products}"
 
 
 class Comment(models.Model):
