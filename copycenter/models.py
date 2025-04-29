@@ -57,6 +57,14 @@ class ProductRamki (models.Model):
     def __str__(self):
         return self.name
 
+class ProductAlbum (models.Model):
+    name = models.CharField(max_length=255)
+    price = models.FloatField()
+    image_url = models.URLField()
+
+    def __str__(self):
+        return self.name
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

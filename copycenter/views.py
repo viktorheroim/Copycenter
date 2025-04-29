@@ -10,10 +10,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, Order, Comment
+from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, Comment
 from .permissions import AllForAdminOtherReadOnly
 from .serializers import UserSerializer, ServicesSerializer, PrintPhotoSerializer, LaminatingSerializer, \
-    BindingSerializer, PrintBWSerializer, PrintColourSerializer, ProductRamkiSerializer, OrderSerializer, \
+    BindingSerializer, PrintBWSerializer, PrintColourSerializer, ProductRamkiSerializer,ProductAlbumSerializer, OrderSerializer, \
     CommentSerializer
 
 
@@ -112,6 +112,14 @@ class ProductRamkiViewSet(viewsets.ModelViewSet):
     permission_classes = (AllForAdminOtherReadOnly,)
 
     def productRamki(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_200_OK)
+
+class ProductAlbumViewSet(viewsets.ModelViewSet):
+    queryset = ProductAlbum.objects.all()
+    serializer_class = ProductAlbumSerializer
+    permission_classes = (AllForAdminOtherReadOnly,)
+
+    def productAlbum(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
 
 

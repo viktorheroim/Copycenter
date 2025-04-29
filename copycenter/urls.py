@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from .views import register_user, ServicesViewSet, PrintPhotoViewSet, LaminatingViewSet, \
-    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, OrderViewSet, CommentViewSet, \
+    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, ProductAlbumViewSet, OrderViewSet, CommentViewSet, \
     UserProfileView
 
 router = routers.DefaultRouter()
@@ -13,6 +13,7 @@ router.register(r'binding', BindingViewSet)
 router.register(r'printbw', PrintBWViewSet)
 router.register(r'printcolour', PrintColourViewSet)
 router.register(r'productramki', ProductRamkiViewSet)
+router.register(r'productalbum', ProductAlbumViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'comments', CommentViewSet)
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('printbw/', PrintBWViewSet.as_view({'get': 'printbw'}), name='printbw'),
     path('printcolour/', PrintColourViewSet.as_view({'get': 'printcolour'}), name='printcolour'),
     path('productramki/', ProductRamkiViewSet.as_view({'get': 'productramki'}), name='productramki'),
+    path('productalbum/', ProductAlbumViewSet.as_view({'get': 'productalbum'}), name='productalbum'),
     path('orders/', OrderViewSet.as_view({'get': 'orders', 'post': 'create'}), name='orders'),
     path('comments/', CommentViewSet.as_view({'get': 'comments', 'post': 'create'}), name='comments'),
     path('register/', register_user, name='register'),
