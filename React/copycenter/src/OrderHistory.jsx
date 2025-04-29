@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import './Styles/OrderHistory.css';
 
 const OrderHistory = ({currentUser}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +44,11 @@ const OrderHistory = ({currentUser}) => {
 
     return (
         <div>
-            <button onClick={openModal}>История заказов</button>
+            <button
+                className='history-button'
+                onClick={openModal}>
+                История заказов
+            </button>
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} ariaHideApp={false}>
                 <h2>История заказов</h2>
                 {loading ? (
@@ -51,15 +56,12 @@ const OrderHistory = ({currentUser}) => {
                 ) : error ? (
                     <p>{error}</p>
                 ) : orders.length === 0 ? (
-                    <p>У вас нет заказов.</p>
+                    <p>У вас нет заказов</p>
                 ) : (
                     <ul>
                         {orders.map((order) => (
                             <li key={order.id}>
                                 <h3>Заказ #{order.id}</h3>
-                                <p>Адрес: {order.address}</p>
-                                <p>Телефон: {order.phone}</p>
-                                <h4>Товары:</h4>
                                 <ul>
                                     {order.products.map((product, index) => (
                                         <li key={index}>{product.name} - {product.quantity}</li>
@@ -69,7 +71,11 @@ const OrderHistory = ({currentUser}) => {
                         ))}
                     </ul>
                 )}
-                <button onClick={closeModal}>Закрыть</button>
+                <button
+                    className='history-button'
+                    onClick={closeModal}>
+                    Закрыть
+                </button>
             </Modal>
         </div>
     );

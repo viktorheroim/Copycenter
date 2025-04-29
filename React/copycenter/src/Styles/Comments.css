@@ -46,3 +46,16 @@
 .close:focus {
     color: #000;
 }
+
+.comments-button {
+    background-color: #4CAF50; /* зеленый фон */
+    color: white; /* цвет текста */
+    border: none; /* без рамки */
+    padding: var(--padding-small) 15px; /* внутренние отступы */
+    margin: 10px; /* внешний отступ между кнопками */
+    border-radius: 5px; /* скругление углов */
+    cursor: pointer; /* курсор при наведении */
+    font-size: 16px; /* размер шрифта */
+    transition: background-color 0.3s; /* плавное изменение цвета */
+}
+

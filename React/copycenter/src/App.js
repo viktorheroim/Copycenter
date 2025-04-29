@@ -9,9 +9,9 @@ import ContentBinding from "./ContentBinding";
 import ContentPrintBW from "./ContentPrintBW";
 import ContentPrintColour from "./ContentPrintColour";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductList from './ProductList/ProductList';
 import Comments from "./Comments";
-import OrderHistory from "./OrderHistory";
+import ProductRamki from './ProductList/ProductRamki';
+import ProductAlbum from "./ProductList/ProductAlbum";
 
 
 function App() {
@@ -19,8 +19,6 @@ function App() {
         <Router>
             <div className='App'>
                 <Header/>
-                <Link className="styled-link" to="/products">Фоторамки</Link>
-                <OrderHistory/>
                 <Routes>
                     <Route
                         path="/"
@@ -36,7 +34,8 @@ function App() {
                             </main>
                         }
                     />
-                    <Route path="/products" element={<ProductList/>}/>
+                    <Route path="/productramki" element={<ProductRamki/>}/>
+                    <Route path="/productalbum" element={<ProductAlbum/>}/>
                 </Routes>
                 <Footer/>
             </div>

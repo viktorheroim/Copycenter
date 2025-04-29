@@ -3,7 +3,7 @@ import './Cart.css';
 
 const Cart = ({ cart, removeFromCart }) => {
     if (cart.length === 0) {
-        return <p>Корзина пуста.</p>;
+        return <p>Корзина пуста</p>;
     }
 
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);

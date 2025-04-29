@@ -4,7 +4,7 @@ import Cart from '../Cart';
 import Checkout from '../Checkout';
 import './ProductList.css';
 
-const ProductList = () => {
+const ProductRamki = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -12,6 +12,8 @@ const ProductList = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [notification, setNotification] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -27,6 +29,12 @@ const ProductList = () => {
 
         fetchProducts();
     }, []);
+
+    // Расчет товаров для текущей страницы
+    const paginatedProducts = products.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const addToCart = (product) => {
         const existingProduct = cart.find(item => item.id === product.id);
@@ -68,14 +76,22 @@ const ProductList = () => {
 
     return (
         <>
-            <button onClick={toggleCart}>
+            <button
+                className="cart-button"
+                onClick={toggleCart}>
                 {isCartOpen ? 'Скрыть корзину' : 'Показать корзину'}
             </button>
             {isCartOpen && (
                 <div className="modal-content">
                     <Cart cart={cart} removeFromCart={removeFromCart}/>
-                    <button onClick={handleCheckout}>Оформить заказ</button>
-                    <button key="close-cart" onClick={toggleCart}>Закрыть</button>
+                    <button
+                        className="cart-button"
+                        onClick={handleCheckout}>Оформить заказ
+                    </button>
+                    <button
+                        className="cart-button"
+                        key="close-cart" onClick={toggleCart}>Закрыть
+                    </button>
                 </div>
             )}
             {isCheckoutOpen && (
@@ -83,7 +99,7 @@ const ProductList = () => {
             )}
             {notification && <div className="notification">{notification}</div>}
             <div className="product-grid">
-                {products.map((product) => (
+                {paginatedProducts.map((product) => (
                     <div className="product-card" key={product.id}>
                         {product.image_url ? (
                             <img src={product.image_url} alt={product.name}/>
@@ -96,8 +112,25 @@ const ProductList = () => {
                     </div>
                 ))}
             </div>
+            <div className="pagination-controls">
+                <button
+                    className="pagination-button"
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Назад
+                </button>
+                <span>Страница {currentPage}</span>
+                <button
+                    className="pagination-button"
+                    onClick={() => setCurrentPage(prev => prev + 1)}
+                    disabled={currentPage * itemsPerPage >= products.length}
+                >
+                    Вперед
+                </button>
+            </div>
         </>
     );
 };
 
-export default ProductList;
+export default ProductRamki;

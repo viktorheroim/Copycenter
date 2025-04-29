@@ -3,13 +3,15 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
     padding: 20px;
+    padding-left: 140px;
+    padding-right: 140px;
 }
 
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 16px;
+    padding: 0;
     text-align: center;
     transition: transform 0.2s;
 }
@@ -27,4 +29,49 @@
 .product-card h3 {
     font-size: 14px; /* Уменьшаем размер шрифта */
     margin: 0; /* Убираем отступы, если нужно */
+    padding: 0;
+}
+
+.cart-button {
+    background-color: #4CAF50; /* зеленый фон */
+    color: white; /* цвет текста */
+    border: none; /* без рамки */
+    padding: var(--padding-small) 15px; /* внутренние отступы */
+    margin: 5px; /* внешний отступ между кнопками */
+    border-radius: 5px; /* скругление углов */
+    cursor: pointer; /* курсор при наведении */
+    font-size: 16px; /* размер шрифта */
+    transition: background-color 0.3s; /* плавное изменение цвета */
+}
+
+.cart-button:hover {
+    background-color: #45a049; /* чуть темнее при наведении */
+}
+
+.pagination-controls {
+    display: flex; /* включаем флекс-контейнер */
+    justify-content: center; /* выравниваем по горизонтали по центру */
+    align-items: center; /* по вертикали, если нужно */
+    gap: 10px; /* расстояние между кнопками */
+}
+
+.pagination-button {
+    background-color: #4CAF50; /* зеленый фон */
+    color: white; /* цвет текста */
+    border: none; /* без рамки */
+    padding: var(--padding-small) 15px; /* внутренние отступы */
+    margin: 5px; /* внешний отступ между кнопками */
+    border-radius: 5px; /* скругление углов */
+    cursor: pointer; /* курсор при наведении */
+    font-size: 16px; /* размер шрифта */
+    transition: background-color 0.3s; /* плавное изменение цвета */
+}
+
+.pagination-button:hover {
+    background-color: #45a049; /* чуть темнее при наведении */
+}
+
+.pagination-button:disabled {
+    background-color: #ccc; /* серый фон для отключенных */
+    cursor: not-allowed; /* курсор недоступен */
 }

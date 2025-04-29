@@ -55,7 +55,9 @@ function Comments() {
 
     return (
         <div>
-            <button onClick={() => setIsModalOpen(true)}>Открыть комментарии</button>
+            <button
+                className='comments-button'
+                onClick={() => setIsModalOpen(true)}>Комментарии</button>
 
             {isModalOpen && (
                 <div className="modall">

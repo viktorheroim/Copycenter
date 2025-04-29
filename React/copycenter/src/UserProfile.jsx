@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import OrderHistory from "./OrderHistory";
+import './Styles/UserProfile.css';
+import EditUserData from "./EditUserData";
 
-const UserProfileModal = ({ isOpen, onClose, userData }) => {
+const UserProfileModal = ({ isOpen, onClose, userData, onEdit }) => {
     if (!isOpen) return null;
 
     return (
@@ -12,12 +14,17 @@ const UserProfileModal = ({ isOpen, onClose, userData }) => {
                     <>
                         <p>Имя пользователя: {userData.username}</p>
                         <p>Почта: {userData.email}</p>
-                        <OrderHistory/>
+                        <OrderHistory />
+                        <button className='user-button' onClick={onEdit}>
+                            Редактировать данные
+                        </button>
                     </>
                 ) : (
                     <p>Данные пользователя отсутствуют.</p>
                 )}
-                <button onClick={onClose}>Закрыть</button>
+                <button className='user-button' onClick={onClose}>
+                    Закрыть
+                </button>
             </div>
         </div>
     );
@@ -28,9 +35,14 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+
+    const handleSaveUserData = (updatedData) => {
+        setUserData(updatedData);
+        setIsEditOpen(false); // Закрыть редактор после сохранения
+    };
 
     useEffect(() => {
-        // Проверяем наличие токена для авторизации
         const token = localStorage.getItem('access_token');
         if (token) {
             fetch('http://127.0.0.1:8000/api/profile/', {
@@ -51,7 +63,6 @@ const UserProfile = () => {
                     setLoading(false);
                 });
         } else {
-            // Если токена нет, просто завершаем загрузку
             setLoading(false);
         }
     }, []);
@@ -67,16 +78,26 @@ const UserProfile = () => {
     if (loading) return <div>Загружаем...</div>;
     if (error) return <div>{error}</div>;
 
-    // Получаем токен для проверки авторизации
     const token = localStorage.getItem('access_token');
 
     return (
         <div>
-            {/* Отображаем кнопку только если пользователь вошел в систему */}
             {token && (
                 <button onClick={openModal}>Кабинет пользователя</button>
             )}
-            <UserProfileModal isOpen={isModalOpen} onClose={closeModal} userData={userData} />
+            <UserProfileModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                userData={userData}
+                onEdit={() => setIsEditOpen(true)} // Передаем функцию для открытия редактора
+            />
+            {isEditOpen && (
+                <EditUserData
+                    userData={userData}
+                    onSave={handleSaveUserData}
+                    onClose={() => setIsEditOpen(false)}
+                />
+            )}
         </div>
     );
 };

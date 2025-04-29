@@ -4,7 +4,6 @@ import Login from "./Login";
 import Register from "./Register";
 import {Link} from 'react-router-dom';
 import './Styles/Link.css';
-import Comments from "./Comments";
 import UserProfile from "./UserProfile";
 
 const Header = () => {
@@ -15,6 +14,8 @@ const Header = () => {
                     <h1>Гарри Плоттер</h1>
                     <p>Адрес: г.Гомель, проспект Победы, 8</p>
                     <Link className="styled-link" to="/">Главная</Link>
+                    <Link className="styled-link" to="/productramki">Фоторамки</Link>
+                    <Link className="styled-link" to="/productalbum">Фотоальбомы</Link>
                 </div>
                 <div className='button-container'>
                     <Register/>
