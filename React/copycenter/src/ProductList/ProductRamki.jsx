@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cart from '../Cart';
 import Checkout from '../Checkout';
 import './ProductList.css';
+import ModalOrder from '../ModalOrder';
 
 const ProductRamki = () => {
     const [products, setProducts] = useState([]);
@@ -94,9 +95,9 @@ const ProductRamki = () => {
                     </button>
                 </div>
             )}
-            {isCheckoutOpen && (
-                <Checkout cart={cart} clearCart={clearCart} onClose={() => setIsCheckoutOpen(false)}/>
-            )}
+            <ModalOrder isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)}>
+                <Checkout cart={cart} clearCart={() => setCart([])} onClose={() => setIsCheckoutOpen(false)} />
+            </ModalOrder>
             {notification && <div className="notification">{notification}</div>}
             <div className="product-grid">
                 {paginatedProducts.map((product) => (

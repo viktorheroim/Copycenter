@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ProductList/ProductList.css';
 
 const Checkout = ({ cart, clearCart, onClose }) => {
     const [address, setAddress] = useState('');
@@ -86,10 +87,15 @@ const Checkout = ({ cart, clearCart, onClose }) => {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                 />
-                <button type="submit" disabled={loading}>
+                <button
+                    className='cart-button'
+                    type="submit" disabled={loading}>
                     {loading ? 'Загрузка...' : 'Подтвердить заказ'}
                 </button>
-                <button type="button" onClick={onClose}>Закрыть</button>
+                <button
+                    className='cart-button'
+                    type="button" onClick={onClose}>Закрыть
+                </button>
             </form>
         </div>
     );

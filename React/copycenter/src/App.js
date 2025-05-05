@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ContentService from "./ContentService";
 import ContentPhoto from "./ContentPhoto";
+import ContentPhotoDocuments from "./ContentPhotoDocuments";
 import ContentLaminating from "./ContentLaminating";
 import ContentBinding from "./ContentBinding";
 import ContentPrintBW from "./ContentPrintBW";
@@ -12,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from "./Comments";
 import ProductRamki from './ProductList/ProductRamki';
 import ProductAlbum from "./ProductList/ProductAlbum";
-
+import YandexMap from "./YandexMap";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                                 <Comments/>
                                 <ContentService/>
                                 <ContentPhoto/>
+                                <ContentPhotoDocuments/>
                                 <ContentLaminating/>
                                 <ContentBinding/>
                                 <ContentPrintBW/>
@@ -36,6 +38,7 @@ function App() {
                     />
                     <Route path="/productramki" element={<ProductRamki/>}/>
                     <Route path="/productalbum" element={<ProductAlbum/>}/>
+                    <Route path="/locations" element={<YandexMap/>}/>
                 </Routes>
                 <Footer/>
             </div>
