@@ -10,11 +10,12 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, Comment
+from .models import Services, PrintPhoto,PrintPhotoDocuments, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, \
+    Comment
 from .permissions import AllForAdminOtherReadOnly
-from .serializers import UserSerializer, ServicesSerializer, PrintPhotoSerializer, LaminatingSerializer, \
-    BindingSerializer, PrintBWSerializer, PrintColourSerializer, ProductRamkiSerializer,ProductAlbumSerializer, OrderSerializer, \
-    CommentSerializer
+from .serializers import UserSerializer, ServicesSerializer, PrintPhotoSerializer, PrintPhotoDocumentsSerializer, LaminatingSerializer, \
+    BindingSerializer, PrintBWSerializer, PrintColourSerializer, ProductRamkiSerializer, ProductAlbumSerializer, \
+    OrderSerializer, CommentSerializer
 
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
@@ -57,6 +58,7 @@ class ServicesViewSet(viewsets.ModelViewSet):
     def services(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
 
+
 class PrintPhotoViewSet(viewsets.ModelViewSet):
     queryset = PrintPhoto.objects.all()
     serializer_class = PrintPhotoSerializer
@@ -65,6 +67,15 @@ class PrintPhotoViewSet(viewsets.ModelViewSet):
     search_fields = ['paper', 'format']
 
     def printphoto(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_200_OK)
+
+
+class PrintPhotoDocumentsViewSet(viewsets.ModelViewSet):
+    queryset = PrintPhotoDocuments.objects.all()
+    serializer_class = PrintPhotoDocumentsSerializer
+    permission_classes = (AllForAdminOtherReadOnly,)
+
+    def printphotodocuments(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
 
 
@@ -113,6 +124,7 @@ class ProductRamkiViewSet(viewsets.ModelViewSet):
 
     def productRamki(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
+
 
 class ProductAlbumViewSet(viewsets.ModelViewSet):
     queryset = ProductAlbum.objects.all()

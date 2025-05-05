@@ -16,6 +16,13 @@ class PrintPhoto(models.Model):
     def __str__(self):
         return f'Бумага: {self.paper} | Формат: {self.format} | Цена: {self.price} руб.'
 
+class PrintPhotoDocuments(models.Model):
+    paper = models.CharField(max_length=20)
+    format = models.CharField(max_length=20)
+    price = models.FloatField()
+
+    def __str__(self):
+        return f'Бумага: {self.paper} | Формат: {self.format} | Цена: {self.price} руб.'
 
 class Laminating(models.Model):
     format = models.CharField(max_length=10)

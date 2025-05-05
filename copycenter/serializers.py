@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, Comment
+from .models import Services, PrintPhoto,PrintPhotoDocuments, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, Comment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -57,6 +57,12 @@ class ServicesSerializer(serializers.ModelSerializer):
 class PrintPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintPhoto
+        fields = ('__all__')
+
+
+class PrintPhotoDocumentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrintPhotoDocuments
         fields = ('__all__')
 
 

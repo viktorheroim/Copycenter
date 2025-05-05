@@ -1,13 +1,14 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import register_user, ServicesViewSet, PrintPhotoViewSet, LaminatingViewSet, \
-    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, ProductAlbumViewSet, OrderViewSet, CommentViewSet, \
-    UserProfileView
+from .views import register_user, ServicesViewSet, PrintPhotoViewSet, PrintPhotoDocumentsViewSet, LaminatingViewSet, \
+    BindingViewSet, PrintBWViewSet, PrintColourViewSet, ProductRamkiViewSet, ProductAlbumViewSet, OrderViewSet, \
+    CommentViewSet, UserProfileView
 
 router = routers.DefaultRouter()
 
 router.register(r'services', ServicesViewSet)
 router.register(r'printphoto', PrintPhotoViewSet)
+router.register(r'printphotodocuments', PrintPhotoDocumentsViewSet)
 router.register(r'laminating', LaminatingViewSet)
 router.register(r'binding', BindingViewSet)
 router.register(r'printbw', PrintBWViewSet)
@@ -17,10 +18,12 @@ router.register(r'productalbum', ProductAlbumViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'comments', CommentViewSet)
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('services/', ServicesViewSet.as_view({'get': 'services'}), name='services'),
     path('printphoto/', PrintPhotoViewSet.as_view({'get': 'printphoto'}), name='printphoto'),
+    path('printphotodocuments/', PrintPhotoDocumentsViewSet.as_view({'get': 'printphotodocuments'}), name='printphotodocuments'),
     path('laminating/', LaminatingViewSet.as_view({'get': 'laminating'}), name='laminating'),
     path('binding/', BindingViewSet.as_view({'get': 'binding'}), name='binding'),
     path('printbw/', PrintBWViewSet.as_view({'get': 'printbw'}), name='printbw'),

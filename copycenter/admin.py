@@ -1,8 +1,10 @@
 from django.contrib import admin
-from .models import Services, PrintPhoto, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, Comment
+from .models import Services, PrintPhoto,PrintPhotoDocuments, Laminating, Binding, PrintBW, PrintColour, ProductRamki, ProductAlbum, Order, \
+    Comment
 
 admin.site.register(Services)
 admin.site.register(PrintPhoto)
+admin.site.register(PrintPhotoDocuments)
 admin.site.register(Laminating)
 admin.site.register(Binding)
 admin.site.register(PrintBW)
