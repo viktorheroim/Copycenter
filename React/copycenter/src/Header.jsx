@@ -15,6 +15,7 @@ const Header = () => {
                     <Link className="styled-link" to="/">Главная</Link>
                     <Link className="styled-link" to="/productramki">Фоторамки</Link>
                     <Link className="styled-link" to="/productalbum">Фотоальбомы</Link>
+                    <Link className="styled-link" to="/information">О компании</Link>
                     <Link className="styled-link" to="/locations">Карта</Link>
                 </div>
                 <div className='button-container'>

@@ -14,6 +14,7 @@ import Comments from "./Comments";
 import ProductRamki from './ProductList/ProductRamki';
 import ProductAlbum from "./ProductList/ProductAlbum";
 import YandexMap from "./YandexMap";
+import ContentInformation from "./ContentInformation";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     />
                     <Route path="/productramki" element={<ProductRamki/>}/>
                     <Route path="/productalbum" element={<ProductAlbum/>}/>
+                    <Route path="/information" element={<ContentInformation/>}/>
                     <Route path="/locations" element={<YandexMap/>}/>
                 </Routes>
                 <Footer/>

@@ -1,0 +1,7 @@
+.information {
+    flex: none;
+    padding: 50px 100px 100px 100px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
